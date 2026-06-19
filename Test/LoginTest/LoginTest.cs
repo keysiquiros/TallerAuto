@@ -20,7 +20,7 @@ namespace SS_003_Babel_Swag_Labs.Test.LoginTest
 
             string expectedUrl = "https://www.saucedemo.com/inventory.html";
             Assert.That(loginPage.GetCurrentUrl(), Is.EqualTo(expectedUrl));
-            Thread.Sleep(2000);
+            Thread.Sleep(2000); 
         }
 
         [Test]

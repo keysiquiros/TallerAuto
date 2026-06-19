@@ -33,7 +33,7 @@ public class LoginPage : BasePage
     {
         Driver.FindElement(btnSubmit).Click();
     }
-
+      
     public void Login(string username, string password)
     {
         EnterUsername(username);
