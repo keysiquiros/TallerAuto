@@ -8,6 +8,7 @@ namespace SS_003_Babel_Swag_Labs.PageObject
     {
         protected IWebDriver Driver;
         protected WebDriverWait Wait;
+        //private readonly string loginUrl = "https://www.saucedemo.com/";
 
 
         protected BasePage(IWebDriver driver)
@@ -24,5 +25,20 @@ namespace SS_003_Babel_Swag_Labs.PageObject
         {
             return Driver.Url;
         }
+        protected void InsertarTexto(By localizador, string texto)
+        {
+            IWebElement element = WaitForElement(localizador);
+            element.Clear();
+            element.SendKeys(texto);
+        }
+        protected void Click(By locator)
+        {
+            IWebElement element = WaitForElement(locator);
+            element.Click();
+        }
+        //public void GoTo()
+        //{
+        //    Driver.Navigate().GoToUrl(loginUrl);
+        //}
     }
 }

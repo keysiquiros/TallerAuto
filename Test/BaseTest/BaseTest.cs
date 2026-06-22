@@ -44,7 +44,14 @@ namespace SS_003_Babel_Swag_Labs.Test
         {
             extentTest = extent.CreateTest(TestContext.CurrentContext.Test.Name);
             var options = new ChromeOptions();
-            options.AddArgument(" -- start-maximized");
+            options.AddArgument("--start-maximized");
+
+            options.AddArgument("--incognito"); // modo incógnito, evita perfiles con historial
+
+            // Desactiva gestor de contraseñas
+            options.AddUserProfilePreference("credentials_enable_service", false);
+            options.AddUserProfilePreference("profile.password_manager_enabled", false);
+            options.AddUserProfilePreference("profile.default_content_setting_values.notifications", 2);
 
             Driver = ChromeFactory.CrearDriver(options);
         }

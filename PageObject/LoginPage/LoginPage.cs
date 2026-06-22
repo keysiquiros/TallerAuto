@@ -18,26 +18,10 @@ public class LoginPage : BasePage
         Driver.Navigate().GoToUrl(loginUrl);
     }
 
-    public void EnterUsername(string username)
-    {
-        WaitForElement(tbxUsername).Clear();
-        Driver.FindElement(tbxUsername).SendKeys(username);
-    }
-    public void EnterPassword(string password)
-    {
-        WaitForElement(tbxPassword).Clear();
-        Driver.FindElement(tbxPassword).SendKeys(password);
-    }
-
-    public void ClickLogin()
-    {
-        Driver.FindElement(btnSubmit).Click();
-    }
-      
     public void Login(string username, string password)
     {
-        EnterUsername(username);
-        EnterPassword(password);
-        ClickLogin();
-    }
+        InsertarTexto(tbxUsername, username);
+        InsertarTexto(tbxPassword, password);
+        Click(btnSubmit);
+    }    
 }

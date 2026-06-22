@@ -17,7 +17,7 @@ namespace SS_003_Babel_Swag_Labs.Test.LoginTest
             var loginPage = new LoginPage(Driver);
             loginPage.GoTo();
             loginPage.Login("standard_user", "secret_sauce");
-
+            Thread.Sleep(2000);
             string expectedUrl = "https://www.saucedemo.com/inventory.html";
             Assert.That(loginPage.GetCurrentUrl(), Is.EqualTo(expectedUrl));
             Thread.Sleep(2000); 
