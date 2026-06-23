@@ -1,9 +1,4 @@
 ﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SS_003_Babel_Swag_Labs.PageObject.CarritoPage
 {
@@ -11,20 +6,22 @@ namespace SS_003_Babel_Swag_Labs.PageObject.CarritoPage
     {
         private readonly string Url = "https://www.saucedemo.com/inventory.html";
 
-        private By btnProducto = By.ClassName("inventory_item_name");
+        private By btnProducto = By.CssSelector("[data-test='inventory-item-name']");
         private By btnAgregar = By.Id("add-to-cart");
-        private By btnCarrito = By.ClassName("shopping_cart_link");
+        private By btnCarrito = By.CssSelector("[data-test='shopping-cart-link']");
+        private By nombreProducto = By.ClassName("inventory_item_name");
+        private By contadorCarrito = By.ClassName("shopping_cart_badge");
 
         public AgregarProductoPage(IWebDriver driver) : base(driver) { }
 
         public void GoTo()
         {
-            Driver.Navigate().GoToUrl(Url);
+            GoToUrl(Url);
         }
 
         public void ClickProducto()
         {
-            Click(btnProducto); // redirige a detalle
+            Click(btnProducto);
         }
 
         public void AgregarAlCarrito()
@@ -34,7 +31,16 @@ namespace SS_003_Babel_Swag_Labs.PageObject.CarritoPage
 
         public void IrAlCarrito()
         {
-            Click(btnCarrito); // redirige al carrito
+            Click(btnCarrito); 
+        }
+        public string ObtenerNombreProducto()
+        {
+            return ObtenerTexto(nombreProducto);
+        }
+
+        public string ObtenerContadorCarrito()
+        {
+            return ObtenerTexto(contadorCarrito);
         }
     }
 

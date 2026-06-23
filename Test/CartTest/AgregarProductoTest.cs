@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SS_003_Babel_Swag_Labs.Test.CarritoTest
+namespace SS_003_Babel_Swag_Labs.Test.CartTest
 {
     public class AgregarProductoTest : BaseTest
     {
@@ -20,18 +20,21 @@ namespace SS_003_Babel_Swag_Labs.Test.CarritoTest
             loginPage.Login("standard_user", "secret_sauce");
 
             var agregarPage = new AgregarProductoPage(Driver);
-            agregarPage.GoTo();
+
+            string productoEsperado = agregarPage.ObtenerNombreProducto();
 
             agregarPage.ClickProducto();
-            Thread.Sleep(2000);
             agregarPage.AgregarAlCarrito();
-            Thread.Sleep(2000);
-            agregarPage.IrAlCarrito();
 
-            Thread.Sleep(2000);
+            Assert.That(agregarPage.ObtenerContadorCarrito(), Is.EqualTo("1"));
+
+            agregarPage.IrAlCarrito();
 
             string expectedUrl = "https://www.saucedemo.com/cart.html";
             Assert.That(agregarPage.GetCurrentUrl(), Is.EqualTo(expectedUrl));
+
+            string productoActual = agregarPage.ObtenerNombreProducto();
+            Assert.That(productoActual, Is.EqualTo(productoEsperado));
         }
     }
 }

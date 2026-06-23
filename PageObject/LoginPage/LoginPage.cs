@@ -10,12 +10,13 @@ public class LoginPage : BasePage
     private By tbxUsername = By.Id("user-name");
     private By tbxPassword = By.Id("password");
     private By btnSubmit = By.Id("login-button");
+    private By mensajeError = By.CssSelector("[data-test='error']");
 
     public LoginPage(IWebDriver driver) : base(driver) { }
 
     public void GoTo()
     {
-        Driver.Navigate().GoToUrl(loginUrl);
+        GoToUrl(loginUrl);
     }
 
     public void Login(string username, string password)
@@ -23,5 +24,10 @@ public class LoginPage : BasePage
         InsertarTexto(tbxUsername, username);
         InsertarTexto(tbxPassword, password);
         Click(btnSubmit);
-    }    
+    }
+
+    public string ObtenerMensajeError()
+    {
+        return ObtenerTexto(mensajeError);
+    }
 }

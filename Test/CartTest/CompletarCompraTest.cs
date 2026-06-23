@@ -21,31 +21,23 @@ namespace SS_003_Babel_Swag_Labs.Test.CartTest
             loginPage.Login("standard_user", "secret_sauce");
 
             var agregarPage = new AgregarProductoPage(Driver);
-            agregarPage.GoTo();
-            var compraPage = new CompletarCompraPage(Driver);
-            compraPage.GoTo();
-
             agregarPage.ClickProducto();
-            Thread.Sleep(2000);
             agregarPage.AgregarAlCarrito();
-            Thread.Sleep(2000);
             agregarPage.IrAlCarrito();
-            Thread.Sleep(2000);
 
+            var compraPage = new CompletarCompraPage(Driver);
             compraPage.ClickCheckout();
-            Thread.Sleep(2000);
+
+            Assert.That(compraPage.ObtenerTituloPagina(), Is.EqualTo("Checkout: Your Information"));
+
             compraPage.IngresarDatosCompra("Keysi", "Quiros", "70502");
-            Thread.Sleep(2000);
-         
+
+            Assert.That(compraPage.ObtenerTituloPagina(), Is.EqualTo("Checkout: Overview"));
+
             compraPage.FinalizarCompra();
-            Thread.Sleep(2000);
 
-
-
-
-
-            //string expectedUrl = "https://www.saucedemo.com/cart.html";
-            //Assert.That(agregarPage.GetCurrentUrl(), Is.EqualTo(expectedUrl));
+            Assert.That(compraPage.GetCurrentUrl(), Is.EqualTo("https://www.saucedemo.com/checkout-complete.html"));
+            Assert.That(compraPage.ObtenerMensajeCompraExitosa(), Is.EqualTo("Thank you for your order!"));
         }
     }
 }

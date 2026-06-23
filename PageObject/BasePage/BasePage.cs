@@ -8,18 +8,30 @@ namespace SS_003_Babel_Swag_Labs.PageObject
     {
         protected IWebDriver Driver;
         protected WebDriverWait Wait;
-        //private readonly string loginUrl = "https://www.saucedemo.com/";
-
 
         protected BasePage(IWebDriver driver)
         {
             Driver = driver;
             Wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
         }
+
+        protected void GoToUrl(string url)
+        {
+            Driver.Navigate().GoToUrl(url);
+        }
         protected IWebElement WaitForElement(By locator)
         {
-            return Driver.FindElement(locator);
+            return Wait.Until(driver =>
+            {
+                var element = driver.FindElement(locator);
 
+                if (element.Displayed && element.Enabled)
+                {
+                    return element;
+                }
+
+                return null;
+            });
         }
         public string GetCurrentUrl()
         {
@@ -36,9 +48,14 @@ namespace SS_003_Babel_Swag_Labs.PageObject
             IWebElement element = WaitForElement(locator);
             element.Click();
         }
-        //public void GoTo()
-        //{
-        //    Driver.Navigate().GoToUrl(loginUrl);
-        //}
+        protected string ObtenerTexto(By locator)
+        {
+            return WaitForElement(locator).Text;
+        }
+        protected bool ExisteElemento(By locator)
+        {
+            return Driver.FindElements(locator).Count > 0;
+        }
+
     }
 }

@@ -11,7 +11,7 @@ namespace SS_003_Babel_Swag_Labs.Test.LoginTest
 
         [Test]
 
-        public void LoginCorrecto_RedireccionExitosa()
+        public void LoginCorrecto()
         {
 
             var loginPage = new LoginPage(Driver);
@@ -24,20 +24,16 @@ namespace SS_003_Babel_Swag_Labs.Test.LoginTest
         }
 
         [Test]
-
         public void LoginIncorrecto()
         {
             var loginPage = new LoginPage(Driver);
+
             loginPage.GoTo();
-            
-            loginPage.Login("standarduser", "secret_sauce");
-            
+            loginPage.Login("usuario_incorrecto", "password_incorrecto");
 
+            string mensajeEsperado = "Epic sadface: Username and password do not match any user in this service";
 
-            string expectedUrl = "https://www.saucedemo.com/";
-            Assert.That(loginPage.GetCurrentUrl(), Is.EqualTo(expectedUrl), "La URL no coincide con la espera.");
-            Thread.Sleep(2000);
-          
+            Assert.That(loginPage.ObtenerMensajeError(), Is.EqualTo(mensajeEsperado));
         }
     }
 }

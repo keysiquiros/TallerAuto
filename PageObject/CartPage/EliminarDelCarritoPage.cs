@@ -1,35 +1,37 @@
 ﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SS_003_Babel_Swag_Labs.PageObject.CarritoPage
 {
     public class EliminarDelCarritoPage : BasePage
     {
-        private readonly string Url = "https://www.saucedemo.com/inventory.html";
 
-        
         private By btnCarrito = By.ClassName("shopping_cart_link");
         private By btnEliminar = By.Id("remove-sauce-labs-backpack");
 
+        private By tituloPagina = By.ClassName("title");
+        private By productoEnCarrito = By.ClassName("inventory_item_name");
+
+
         public EliminarDelCarritoPage(IWebDriver driver) : base(driver) { }
 
-        public void GoTo()
-        {
-            Driver.Navigate().GoToUrl(Url);
-        }
 
         public void EliminarProducto()
         {
-            Click(btnEliminar); 
+            Click(btnEliminar);
         }
 
-        public void IrAlCarrito()
+        public string ObtenerTituloPagina()
         {
-            Click(btnCarrito); // redirige al carrito
+            return ObtenerTexto(tituloPagina);
+        }
+
+        public string ObtenerNombreProducto()
+        {
+            return ObtenerTexto(productoEnCarrito);
+        }
+        public bool ProductoVisibleEnCarrito()
+        {
+            return ExisteElemento(productoEnCarrito);
         }
     }
 }

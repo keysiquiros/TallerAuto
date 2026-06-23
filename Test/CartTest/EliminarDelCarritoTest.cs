@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SS_003_Babel_Swag_Labs.Test.CarritoTest
+namespace SS_003_Babel_Swag_Labs.Test.CartTest
 {
     public class EliminarDelCarritoTest : BaseTest
     {
@@ -20,21 +20,18 @@ namespace SS_003_Babel_Swag_Labs.Test.CarritoTest
             loginPage.Login("standard_user", "secret_sauce");
 
             var agregarPage = new AgregarProductoPage(Driver);
-            agregarPage.GoTo();
-            var eliminarPage = new EliminarDelCarritoPage(Driver);
-            agregarPage.GoTo();
-
             agregarPage.ClickProducto();
             agregarPage.AgregarAlCarrito();
-           
-       
-            eliminarPage.IrAlCarrito();
-            Thread.Sleep(2000); 
-            eliminarPage.EliminarProducto();
-            Thread.Sleep(2000);
+            agregarPage.IrAlCarrito();
 
-            string expectedUrl = "https://www.saucedemo.com/cart.html";
-            Assert.That(agregarPage.GetCurrentUrl(), Is.EqualTo(expectedUrl));
+            var eliminarPage = new EliminarDelCarritoPage(Driver);
+
+            Assert.That(eliminarPage.ObtenerTituloPagina(), Is.EqualTo("Your Cart"));
+            Assert.That(eliminarPage.ProductoVisibleEnCarrito(), Is.True);
+           
+            eliminarPage.EliminarProducto();
+            
+            Assert.That(eliminarPage.ProductoVisibleEnCarrito(), Is.False);
         }
     }
 }
