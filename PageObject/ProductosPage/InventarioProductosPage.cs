@@ -1,25 +1,58 @@
 ﻿using OpenQA.Selenium;
 
-namespace SS_003_Babel_Swag_Labs.PageObject.CartPage
+namespace SS_003_Babel_Swag_Labs.PageObject.ProductosPage
 {
-    public class FiltrarProductosPage : BasePage
+    public class InventarioProductosPage : BasePage
     {
+        private readonly string Url = "https://www.saucedemo.com/inventory.html";
 
+        // Localizadores para productos
+        private By nombreProducto = By.CssSelector("[data-test='inventory-item-name']");
+        private By btnAgregar = By.Id("add-to-cart");
+        private By btnCarrito = By.CssSelector("[data-test='shopping-cart-link']");
+        private By contadorCarrito = By.ClassName("shopping_cart_badge");
+
+        // Localizadores para filtros
         private By comboFiltro = By.CssSelector("[data-test='product-sort-container']");
-
         private By opcionNombreAscendente = By.CssSelector("option[value='az']");
         private By opcionNombreDescendente = By.CssSelector("option[value='za']");
         private By opcionPrecioMenorMayor = By.CssSelector("option[value='lohi']");
         private By opcionPrecioMayorMenor = By.CssSelector("option[value='hilo']");
 
+        // Localizadores para validaciones
         private By opcionSeleccionada = By.CssSelector("[data-test='product-sort-container'] option:checked");
-        private By primerProducto = By.CssSelector("[data-test='inventory-item-name']");
         private By primerPrecio = By.CssSelector("[data-test='inventory-item-price']");
 
+        public InventarioProductosPage(IWebDriver driver) : base(driver) { }
 
-        public FiltrarProductosPage(IWebDriver driver) : base(driver) { }
+       
+        // Métodos para agregar productos
+        public void ClickProducto()
+        {
+            Click(nombreProducto);
+        }
 
+        public void AgregarProductoAlCarrito()
+        {
+            Click(btnAgregar);
+        }
 
+        public void IrAlCarrito()
+        {
+            Click(btnCarrito);
+        }
+
+        public string ObtenerNombreProducto()
+        {
+            return ObtenerTexto(nombreProducto);
+        }
+
+        public string ObtenerContadorCarrito()
+        {
+            return ObtenerTexto(contadorCarrito);
+        }
+
+        // Métodos para filtrar productos
         public void AbrirComboFiltro()
         {
             Click(comboFiltro);
@@ -44,6 +77,8 @@ namespace SS_003_Babel_Swag_Labs.PageObject.CartPage
         {
             Click(opcionPrecioMayorMenor);
         }
+
+        // Métodos para validaciones
         public string ObtenerOpcionSeleccionada()
         {
             return ObtenerTexto(opcionSeleccionada);
@@ -51,7 +86,7 @@ namespace SS_003_Babel_Swag_Labs.PageObject.CartPage
 
         public string ObtenerPrimerProducto()
         {
-            return ObtenerTexto(primerProducto);
+            return ObtenerTexto(nombreProducto);
         }
 
         public string ObtenerPrimerPrecio()

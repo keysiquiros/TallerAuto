@@ -3,11 +3,6 @@ using AventStack.ExtentReports.Reporter;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using SS_003_Babel_Swag_Labs.Genericos.DriverConfig;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SS_003_Babel_Swag_Labs.Test
 {
@@ -26,17 +21,40 @@ namespace SS_003_Babel_Swag_Labs.Test
             reportTestPage = pageContext;
         }
 
-
         [OneTimeSetUp]
-
         public void StarReport()
         {
+            string fecha = DateTime.Now.ToString("yyyyMMdd_HHmmss");
 
-            var spark = new ExtentSparkReporter("Reporte.html");
+            string rutaReporte = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Reports",
+                $"Reporte_{fecha}.html"
+            );
+
+            Directory.CreateDirectory(Path.GetDirectoryName(rutaReporte)!);
+
+            var spark = new ExtentSparkReporter(rutaReporte);
+
             extent = new ExtentReports();
             extent.AttachReporter(spark);
-            Console.WriteLine(AppDomain.CurrentDomain.BaseDirectory);
+
+            extent.AddSystemInfo("Proyecto", "SS_003_Babel_Swag_Labs");
+            extent.AddSystemInfo("Modulo", reportTestPage);
+            extent.AddSystemInfo("Navegador", "Chrome");
+
+            Console.WriteLine("Reporte generado en: " + rutaReporte);
         }
+        //[OneTimeSetUp]
+
+        //public void StarReport()
+        //{
+
+        //    var spark = new ExtentSparkReporter("Reporte.html");
+        //    extent = new ExtentReports();
+        //    extent.AttachReporter(spark);
+        //    Console.WriteLine(AppDomain.CurrentDomain.BaseDirectory);
+        //}
 
         [SetUp]
 
@@ -46,12 +64,10 @@ namespace SS_003_Babel_Swag_Labs.Test
             var options = new ChromeOptions();
             options.AddArgument("--start-maximized");
 
-            options.AddArgument("--incognito"); // modo incógnito, evita perfiles con historial
-
             // Desactiva gestor de contraseñas
             options.AddUserProfilePreference("credentials_enable_service", false);
             options.AddUserProfilePreference("profile.password_manager_enabled", false);
-            options.AddUserProfilePreference("profile.default_content_setting_values.notifications", 2);
+            options.AddUserProfilePreference("profile.password_manager_leak_detection", false);
 
             Driver = ChromeFactory.CrearDriver(options);
         }

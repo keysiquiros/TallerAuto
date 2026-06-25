@@ -2,22 +2,24 @@
 
 namespace SS_003_Babel_Swag_Labs.PageObject.CarritoPage
 {
-    public class EliminarDelCarritoPage : BasePage
+    public class CarritoPage : BasePage
     {
-
-        private By btnCarrito = By.ClassName("shopping_cart_link");
+        // Localizadores del carrito
         private By btnEliminar = By.Id("remove-sauce-labs-backpack");
-
+        private By btnCheckout = By.Id("checkout");
         private By tituloPagina = By.ClassName("title");
         private By productoEnCarrito = By.ClassName("inventory_item_name");
 
-
-        public EliminarDelCarritoPage(IWebDriver driver) : base(driver) { }
-
+        public CarritoPage(IWebDriver driver) : base(driver) { }
 
         public void EliminarProducto()
         {
             Click(btnEliminar);
+        }
+
+        public void ClickCheckout()
+        {
+            Click(btnCheckout);
         }
 
         public string ObtenerTituloPagina()
@@ -29,6 +31,7 @@ namespace SS_003_Babel_Swag_Labs.PageObject.CarritoPage
         {
             return ObtenerTexto(productoEnCarrito);
         }
+
         public bool ProductoVisibleEnCarrito()
         {
             return ExisteElemento(productoEnCarrito);
