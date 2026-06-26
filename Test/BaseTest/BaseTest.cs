@@ -31,7 +31,7 @@ namespace SS_003_Babel_Swag_Labs.Test
                 "Reports",
                 $"Reporte_{fecha}.html"
             );
-
+            Directory.CreateDirectory(Path.GetDirectoryName(rutaReporte)!);
             var spark = new ExtentSparkReporter(rutaReporte);
 
             extent = new ExtentReports();
