@@ -3,9 +3,9 @@ using SS_003_Babel_Swag_Labs.PageObject.MenuPage;
 
 namespace SS_003_Babel_Swag_Labs.Test.LoginTest
 {
-    public class CerrarTest : BaseTest
+    public class CerrarSesionTest : BaseTest
     {
-        public CerrarTest() : base("CerrarSesion") { }
+        public CerrarSesionTest() : base("CerrarSesion") { }
 
         [Test]
         public void CerrarSesion()

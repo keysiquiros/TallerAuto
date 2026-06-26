@@ -32,29 +32,13 @@ namespace SS_003_Babel_Swag_Labs.Test
                 $"Reporte_{fecha}.html"
             );
 
-            Directory.CreateDirectory(Path.GetDirectoryName(rutaReporte)!);
-
             var spark = new ExtentSparkReporter(rutaReporte);
 
             extent = new ExtentReports();
             extent.AttachReporter(spark);
 
-            extent.AddSystemInfo("Proyecto", "SS_003_Babel_Swag_Labs");
-            extent.AddSystemInfo("Modulo", reportTestPage);
-            extent.AddSystemInfo("Navegador", "Chrome");
-
-            Console.WriteLine("Reporte generado en: " + rutaReporte);
         }
-        //[OneTimeSetUp]
-
-        //public void StarReport()
-        //{
-
-        //    var spark = new ExtentSparkReporter("Reporte.html");
-        //    extent = new ExtentReports();
-        //    extent.AttachReporter(spark);
-        //    Console.WriteLine(AppDomain.CurrentDomain.BaseDirectory);
-        //}
+       
 
         [SetUp]
 

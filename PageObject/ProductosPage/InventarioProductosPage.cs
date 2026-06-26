@@ -4,7 +4,6 @@ namespace SS_003_Babel_Swag_Labs.PageObject.ProductosPage
 {
     public class InventarioProductosPage : BasePage
     {
-        private readonly string Url = "https://www.saucedemo.com/inventory.html";
 
         // Localizadores para productos
         private By nombreProducto = By.CssSelector("[data-test='inventory-item-name']");
